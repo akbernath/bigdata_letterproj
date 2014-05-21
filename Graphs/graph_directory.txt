@@ -1,0 +1,3 @@
+Sub-directory for project graphs.
+
+Please store in *.pdf format.
