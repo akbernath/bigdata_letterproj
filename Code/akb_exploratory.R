@@ -5,6 +5,12 @@
 
 ##  Sorry, couldn't resist.
 
+###############################################
+##   Obsolete code: New code pushed to git   ##
+##   for learning/x-validate split           ##
+###############################################
+
+
 setwd("D:/School/Spring 14/ST599/bigdata_letterproj")
 
 library(dplyr)
@@ -20,6 +26,7 @@ letters$letter <- as.factor(letters$letter)
 
 #   SRS with replacement sample for learning set
 learn_samp <- srswr(round(2*nrow(letters)/3), nrow(letters))
+#   Discard this idea better to sample strata w/out replacement
 
 
 #   Create data frame and for loop to build learning set from SRS
