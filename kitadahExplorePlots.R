@@ -40,3 +40,4 @@ rownames(let.means)<-lett.sum[,1]
 lc=hclust(dist(let.means))
 #all labels at same height 
 plot(lc,hang=-1)
+#test
