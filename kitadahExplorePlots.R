@@ -109,15 +109,21 @@ for(i in 1:26){
 learn.mat<-cbind(depth,learn.mat)
 
 
+#test case
+new.data<-learn[5000,2:17]
+true<-learn[5000,18]
+true
+
+##RUN CODE
 path<-c()
 end<-1
-now<-c(1,1,1,0,-1,-1)
+
 while(end >=0){
-for(j in 1:5){
   left<-c()
   right<-c()
-  this.data<-learn[,-1]
 for(i in 1:26){
+  
+##splits data into subsets for left and right 
   count.left<-0
   path.left<-c(path,0)
   for(a in 1:length(path.left)){
@@ -141,15 +147,18 @@ for(i in 1:26){
     right<-c(right,rownames(learn.mat)[i])
   }
 }
+print(right)
+print(left)
 ##build a logistic regression model 
-resp<-c()
+resp<-c(rep(NA,13333))
 for(i in 1:13333){
   if(learn$letter[i] %in% right){
-    resp<-c(resp,1)
+    resp[i]<-1
   }
   if(learn$letter[i] %in% left){
-    resp<-c(resp,0)
+    resp[i]<-0
   }
+  
 }
 mod<-glm(resp~learn$x_box+learn$y_box+learn$width+learn$high+learn$onpix+learn$x_bar+learn$y_bar+learn$x2_bar+learn$y2_bar+learn$xy_bar+learn$x2y_bar+learn$xy2_bar+learn$x_ege+learn$x_egvy+learn$y_ege+learn$y_egvx,family="binomial")
 ##this returns the sample probability from the new data 
@@ -166,11 +175,13 @@ if(pi.hat>=0.5){
 if(pi.hat<0.5){
   path<-c(path,0)
 }
-print(right)
-print(left)
-end<-now[j]
+
 print(path)
+
+if(length(left)==0 | length(right)==0){
+  end=-1
 }
+
 
 }
 
