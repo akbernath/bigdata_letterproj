@@ -170,15 +170,16 @@ for(i in 2:17){
 pi.hat=exp(this.logit)/(1+exp(this.logit))
 ##decide where to move (right=1, left=0)
 if(pi.hat>=0.5){
-  path<-c(path,1)
+move=1
 }
 if(pi.hat<0.5){
-  path<-c(path,0)
+move=0
 }
+path<-c(path,move)
 
 print(path)
 
-if(length(left)==0 | length(right)==0){
+if((move==1 & length(right)==1) | (move==0 & length(left)==1)){
   end=-1
 }
 
