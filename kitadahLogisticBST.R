@@ -104,11 +104,12 @@ choice==true
 valid<-read.csv("/Users/heatherhisako1/Documents/bigdata_letterproj/Data/xvalid_set.csv",head=TRUE)
 head(valid)
 dim(valid)
-
+### Andrew did not code the validation set the same as the training set 
+##labels are out of order 
 specification<-c()
 for(h in 1:6667){
-  new.data<-valid[h,2:17]
-  true<-learn[h,18]
+  new.data<-valid[h,3:18]
+  true<-valid[h,2]
   
   ##RUN CODE
   path<-c()
