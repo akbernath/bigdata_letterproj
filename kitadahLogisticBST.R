@@ -188,3 +188,6 @@ for(h in 1:6667){
 }
 mean(specification)
 ##test run on 5/26/14 --> 0.004499775
+#this run doesn't count.. there was an error in the code 
+
+##test run on 5/27/2014 --> 0.7483126
