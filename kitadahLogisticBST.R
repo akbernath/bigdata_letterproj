@@ -191,3 +191,18 @@ mean(specification)
 #this run doesn't count.. there was an error in the code 
 
 ##test run on 5/27/2014 --> 0.7483126
+valid.letters<-as.character(valid[,2])
+bst.out<-cbind(valid.letters, as.numeric(specification))
+write.csv(bst.out, file = "/Users/heatherhisako1/Desktop/OSU/Second Year/Spring 2014/ST 599/bst_out.csv")
+library(dplyr)
+library(plyr)
+bst_csv<-read.csv("/Users/heatherhisako1/Desktop/OSU/Second Year/Spring 2014/ST 599/bst_out.csv",header=TRUE)
+bst.sum<-ddply(bst_csv, .(letter), summarise,prob=mean(valid))
+barplot( bst.sum$prob,names.arg=bst.sum$letter)
+
+library(ggplot2)
+ggplot(bst.sum, aes(x =as.factor(letter), y = prob,fill=as.numeric(prob))) + geom_bar(stat = "identity")+ylab("Sample Probability of Correct Specification")+xlab("Letter")+scale_fill_continuous(guide = guide_legend(title = ""))+ggtitle("Classification Performance of Logistic Regression BST by Letter") 
+                                                                                                                                                                                             
+
+
+
