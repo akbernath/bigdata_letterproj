@@ -107,7 +107,9 @@ dim(valid)
 ### Andrew did not code the validation set the same as the training set 
 ##labels are out of order 
 specification<-c()
-for(h in 1:6667){
+store.choice<-c()
+store.true<-c()
+for(h in 3001: 6667){
   new.data<-valid[h,3:18]
   true<-valid[h,2]
   
@@ -184,6 +186,8 @@ for(h in 1:6667){
   }
   
   specification<-c(specification,choice==true)
+  store.choice<-c(store.choice,choice)
+  store.true<-c(store.true,true)
   print(h)
 }
 mean(specification)
@@ -193,16 +197,45 @@ mean(specification)
 ##test run on 5/27/2014 --> 0.7483126
 valid.letters<-as.character(valid[,2])
 bst.out<-cbind(valid.letters, as.numeric(specification))
-write.csv(bst.out, file = "/Users/heatherhisako1/Desktop/OSU/Second Year/Spring 2014/ST 599/bst_out.csv")
+#write.csv(bst.out, file = "/Users/heatherhisako1/Desktop/OSU/Second Year/Spring 2014/ST 599/bst_out.csv")
 library(dplyr)
 library(plyr)
 bst_csv<-read.csv("/Users/heatherhisako1/Desktop/OSU/Second Year/Spring 2014/ST 599/bst_out.csv",header=TRUE)
 bst.sum<-ddply(bst_csv, .(letter), summarise,prob=mean(valid))
+
+#create plots to see how specification is distributed 
 barplot( bst.sum$prob,names.arg=bst.sum$letter)
 
 library(ggplot2)
 ggplot(bst.sum, aes(x =as.factor(letter), y = prob,fill=as.numeric(prob))) + geom_bar(stat = "identity")+ylab("Sample Probability of Correct Specification")+xlab("Letter")+scale_fill_continuous(guide = guide_legend(title = ""))+ggtitle("Classification Performance of Logistic Regression BST by Letter") 
                                                                                                                                                                                              
+##summarise validation set 
+valid.sum<-ddply(valid, .(letter), summarise,n=sum(x_box>0))
+#H is 1783 to 2050
+
+ones<-rep(1,6667)
+new<-cbind(letter=LETTERS[store.true],store.choice,specification,ones)
+head(new)
+
+write.csv(new, file = "/Users/heatherhisako1/Desktop/OSU/Second Year/Spring 2014/ST 599/bst_all.csv")
+all_csv<-read.csv("/Users/heatherhisako1/Desktop/OSU/Second Year/Spring 2014/ST 599/bst_all.csv",header=TRUE)
 
 
+all.sum<-ddply(all_csv, .(letter,store.choice), summarise,prob=sum(ones))
+head(all.sum)
+
+spec.mat<-matrix(0, nrow=26, ncol=26)
+rownames(spec.mat)<-LETTERS[1:26]
+colnames(spec.mat)<-LETTERS[1:26]
+for(i in 1:26){
+  for(j in 1:26){
+    for(k in 1:346){
+      if(all.sum[k,1]==colnames(spec.mat)[i] & all.sum[k,2]==rownames(spec.mat)[j]){
+        spec.mat[j,i]=all.sum[k,3]
+      }
+    }
+  }
+}
+
+write.csv(spec.mat, file = "/Users/heatherhisako1/Desktop/OSU/Second Year/Spring 2014/ST 599/spec_mat.csv")
 
