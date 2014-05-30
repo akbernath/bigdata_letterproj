@@ -28,52 +28,92 @@ let.xvalid <- let.xvalid[,-1]
 mod.init <- rpart(letter ~ .,
                   data=let.learn,
                   method="class",
-                  control=rpart.control(cp=0))
-prp(mod.init)
-##  So that's a mess... let's see cp parameters
-plotcp(mod.init)
-##  Looks like a good relative error is at ~0.00025
-##  but that corresponds with over 300 terminal nodes
-##  Let's shoot for around 30 terminal nodes to try 
-##  and capture all letters.  Set cp = 0.005
+                  control=rpart.control(xval=10, cp=0))
 
-summary(mod.init)
-mod.init
+##  Plot full tree
+prp(mod.init, main="Full Classification Tree")
+##  So that's a mess... let's see cp parameters to get a sense of 
+##  how much to prune
+
+plotcp(mod.init)
+CP.tab.0 <- printcp(mod.init)
+min(CP.tab.0[,4])
+one.minus.SE <- CP.tab.0[,4]-CP.tab.0[,5]
+one.minus.SE
+new.CP <- CP.tab.0[82,1]
+#   By 1-SE Rule we want to choose 0.0002345399
+#   corresponds to tree with 336 ... yikes!
+
+
+##  Pruned tree
+mod.pruned <- prune(mod.init, cp=new.CP)
+
+##  Plot full tree
+prp(mod.pruned, main="Pruned Classification Tree")
+plotcp(mod.pruned)
+#   This is not very helpful and will take a long time 
+#   to minimize
+
+
+##  Let's try the automatic process
+mod.1 <- rpart(letter ~ .,
+                  data=let.learn,
+                  method="class",
+                  control=rpart.control(xval=10))
+
+##  Plot the new model
+prp(mod.1, main="Automatic Classification Tree")
+
+##  Check model errors
+plotcp(mod.init)
+printcp(mod.init)
+
+mod1.pred <- predict(mod.1, newdata=let.xvalid, type="class")
+CT.confusion <- table(mod1.pred, let.xvalid$letter)
+
+##  Output confusion matrix to csv
+write.csv(CT.confusion, "data/CT_confusion.csv", na="NA")
 ##  Missing E, F, K, O, R, S, Y
 ##  W appears at 2 terminal nodes
 
-
-mod.2 <- rpart(letter ~ .,
-               data=let.learn,
-               method="class",
-               control=rpart.control(cp=0.005))
-prp(mod.1)
-##  Missing "O."
-plotcp(mod.1)
-##  Several attempts with various cp parameters
-##  down to 0.003 still do not capture class "O".
+#   Misclassification error
+mc.CT <- 1-(sum(diag(CT.confusion))/sum(CT.confusion))
 
 
 
-####  Switch from CART to bagging
-bag.0 <- bagging(letter~.,
+####  So the full tree overfits, the pruned tree , and 
+####  the automatically generated tre fails to classify several
+####  letters, namely, E, F, K, O, R, S, Y
+####  Switch from CART to bagging and see if we can improve ourr estimates
+bag.init <- bagging(letter~.,
                  data=let.learn,
                  mfinal=50,
-                 control=rpart.control(cp=0.005))
-names(bag.0)
-bag.0$importance
+                 control=rpart.control(xval=10,cp=0.005))
+names(bag.init)
+
+##  Variable importance
+bag.init$importance
 
 ##  Check predictions
-bag.0.pred <- predict(bag.0, newdata=let.xvalid,
-                      newmfinal=length(bag.0$trees))
-names(bag.0.pred)
-bag.0.pred$confusion
+bag.0.pred <- predict(bag.init, newdata=let.xvalid,
+                      newmfinal=length(bag.init$trees))
+
+#   Find bagging confusion estimates
+bag.confusion <- bag.0.pred$confusion
+
+#  Output confusion matrix to csv
+write.csv(bag.confusion, "data/bag_confusion.csv", na="NA")
 ##  Classes F, H, O, and S have considerable confusion
-bag.0.pred$error
+
+
+
+#   Misclassification error for bagging
+mc.error <- 1-(sum(diag(bag.confusion))/sum(bag.confusion))
+
 
 ##  Error evolution versus number of iterations
-evol.learn <- errorevol(bag.0,let.learn)
-evol.xvalid <- errorevol(bag.0,let.xvalid)
+evol.learn <- errorevol(bag.init,let.learn)
+evol.xvalid <- errorevol(bag.init,let.xvalid)
 
 #   Plot learning error and prediction error
 plot(evol.xvalid$error, type="l", ylim=c(0.35,0.5),
@@ -81,4 +121,6 @@ plot(evol.xvalid$error, type="l", ylim=c(0.35,0.5),
      xlab="Iterations", ylab="Error", col = "red")
 lines(evol.learn$error, cex = .5 ,col="blue", lty=2)
 legend("topright", c("learn","xvalid"), col = c("red", "blue"), lty=1:2)
-##  Stabilizes to ~0.40 around 28 iterations
+##  Stabilizes by 40 iterations
+
+
