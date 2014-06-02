@@ -46,6 +46,8 @@ plot(lc,hang=-1)
 learn<-read.csv("/Users/heatherhisako1/Documents/bigdata_letterproj/Data/learn_set.csv",header=TRUE)
 head(learn)
 dim(learn)
+install.packages("plyr")
+install.packages("dplyr")
 library(dplyr)
 library(plyr)
 #learn.sum.n<-ddply(learn, .(letter), summarise,mean_xboxHor=mean(x_box),mean_yboxVert=mean(y_box),
