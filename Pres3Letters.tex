@@ -217,6 +217,100 @@ Conclusion: Correctly classified! Yay!
 
 \end{frame}
 
+\subsection{Decision Tree Algorithm}
+\begin{frame}
+\frametitle{Decision Tree Algorithm}
+Constructing Decision Tree (Using Learning Set):
+\begin{enumerate}
+\item \small{All training set observations are lumped into a single node}
+\item \small{The majority class - which class of letter has the most observations in the active node - is identified.}
+\item \small{The Gini index is calculated for the active node.}
+\begin{enumerate}
+\item \small{For every covariate at every possible splt point the Gini index is calculated for the two new created nodes after the considered splot.}
+\item \small{A weighted average is taken on the two indices.}
+\item \small{The coviariate/split point combination that produces the largest (Original Gini Index - Sum(Split Gini Indices)) is chosen as the split criteria.}
+\end{enumerate}
+\item \small{The split is created creating two new nodes.}
+\item \small{Steps 2 through 4 are repeated for each new node, up to a certain threshold.}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{What is a Gini Impurity Index (GII)?}
+\begin{itemize}
+\item The Gini index is a number that represents the "impurity" in a node, i.e. the amount of mixing of classes present
+\item A pure node would be one consisting of only a single class, then Gini index = 0
+\item A node with equal amounts of every class would be perfectly impure, and the Gini would be at maximum (no upper bound)
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Traversing Decision Tree}
+\begin{enumerate}
+\item A new observation is introduced.
+\item The first decision point - i.e., split point/covariate combination - is reached. If the covariate for the new observation is less than the split point, it goes left; if it is greater, it goes right.
+\item Step 1 is repeated until a terminal node is reached, and a class is assigned.
+\end{enumerate}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Full CART Decision Tree}
+\begin{center} 
+\includegraphics[width=1 \textwidth]{FullCT}
+\end{center}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Full CART Decision Tree Zoom In }
+\begin{center} 
+\includegraphics[width=.8 \textwidth]{magGlass}
+
+\small{After tree is created it requires "pruning" to get rid of repeated nodes.}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{How should we prune?}
+\begin{center} 
+\includegraphics[width=1 \textwidth]{cpPlot}
+\end{center}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Pruned CART Decision Tree}
+\begin{center} 
+\includegraphics[width=1 \textwidth]{PrunedCT}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{CART vs BAG Methods}
+\begin{itemize}
+\item CART model is based on using a single tree for each of the predictions made.  
+\begin{itemize}
+\item Fails to classify 7 classes
+\end{itemize}
+\item BAG model is based on aggregation (bootstrap) of votes from all the trees used in the model.  
+\begin{itemize}
+\item performs better (it predicts all classes, even if not perfectly)
+\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Bagging Error Plot}
+\begin{center} 
+\includegraphics[width=.6 \textwidth]{bagError}
+\end{center}
+\end{frame}
+
+
+
 \section{Summary of Findings}
 \begin{frame}
 \frametitle{Summary of Findings}
@@ -231,6 +325,26 @@ Findings for:
 \end{enumerate}
 \end{frame}
 
+\begin{frame}
+\frametitle{Overall Findings}
+\begin{enumerate}
+\item Logistic Regression BST : $74.8\%$ Correct Specification Overall
+\begin{itemize}
+\item Highest Correct Classification: \textbf{W} with $94\%$
+\item Lowest Correct Classification: \textbf{H} with $40\%$
+\end{itemize}
+\item CART Method: $47.1\%$ Correct Specification Overall
+\begin{itemize}
+\item Highest Correct Classification: \textbf{I} with $78\%$
+\item Lowest Correct Classification: \textbf{E,F,K,O,R,S,Y} with $0\%$
+\end{itemize}
+\item Bag Method: $60.6\%$ Correct Specification Overall
+\begin{itemize}
+\item Highest Correct Classification: \textbf{V} with $82\%$
+\item Lowest Correct Classification: \textbf{S} with $22\%$
+\end{itemize}
+\end{enumerate}
+\end{frame}
 
 \begin{frame}
 \frametitle{Logistic Regression BST Distribution of Specification}
@@ -278,28 +392,6 @@ Findings for:
 \end{frame}
 
 
-\begin{frame}
-\frametitle{Overall Findings}
-\begin{enumerate}
-\item Logistic Regression BST : $74.8\%$ Correct Specification Overall
-\begin{itemize}
-\item Highest Correct Classification: \textbf{W} with $94\%$
-\item Lowest Correct Classification: \textbf{H} with $40\%$
-\end{itemize}
-\item CART Method: $47.1\%$ Correct Specification Overall
-\begin{itemize}
-\item Highest Correct Classification: \textbf{I} with $78\%$
-\item Lowest Correct Classification: \textbf{E,F,K,O,R,S,Y} with $0\%$
-\end{itemize}
-\item Bag Method: $60.6\%$ Correct Specification Overall
-\begin{itemize}
-\item Highest Correct Classification: \textbf{V} with $82\%$
-\item Lowest Correct Classification: \textbf{S} with $22\%$
-\end{itemize}
-\end{enumerate}
-\end{frame}
-
-
 \section{Discussion}
 \begin{frame}
 \frametitle{Discussion}
@@ -319,6 +411,18 @@ Findings for:
 
 \tiny{Source: IDRE UCLA (Institute for Digital Research and Education}
 \end{frame}
+
+\subsection{Scalability}
+\begin{frame}
+\frametitle{Scalability}
+\end{frame}
+
+
+\subsection{Future Work}
+\begin{frame}
+\frametitle{Future Work}
+\end{frame}
+
 
 
 
