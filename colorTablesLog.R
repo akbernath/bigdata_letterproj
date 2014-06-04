@@ -1,3 +1,11 @@
+#Heather Kitada
+
+# Code for creating tables and coloring them according to log 
+# We want to log the color the tables because the highest proportions
+# are on the digonals.
+# The log scale "draws" out the proportions. 
+
+#example found online
 install.packages("gplots")
 library(gplots)
 testdf<-data.frame(Before=c(10,7,5,9),During=c(8,6,2,5),After=c(5,3,4,3))
@@ -25,7 +33,7 @@ addtable2plot(x = 1, y = 1, table = testdf,
               bg = cols, cex = 3)
 
 #####NOW MY TURN
-
+# Table for the confusion matrix with log coloring 
 logbst<-read.csv("/Users/heatherhisako1/Desktop/OSU/Second Year/Spring 2014/ST 599/hkLogBSTPerc.csv",header=TRUE)
 logbst.trim<-logbst[,-1]
 row.names(logbst.trim)<-logbst[,1]
@@ -54,6 +62,7 @@ addtable2plot(x = 1, y = 1, table = logbst.trim,
               bg = log.col,cex=.65)
 
 ###CART
+# Table for the confusion matrix with log coloring 
 cart.dat<-read.csv("/Users/heatherhisako1/Desktop/OSU/Second Year/Spring 2014/ST 599/percentCART.csv",header=TRUE)
 cart.trim<-cart.dat[,-1]
 rownames(cart.trim)<-cart.dat[,1]
@@ -104,6 +113,7 @@ total=total+sum(cart.o[,1])
 correct/total
 
 ####Bag Method
+# Table for the confusion matrix with log coloring 
 bag.dat<-read.csv("/Users/heatherhisako1/Desktop/OSU/Second Year/Spring 2014/ST 599/percentBAG.csv",header=TRUE)
 bag.trim<-bag.dat[,-1]
 rownames(bag.trim)<-bag.dat[,1]
