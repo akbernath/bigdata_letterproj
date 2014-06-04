@@ -66,6 +66,9 @@ dim(learn.sum)
 head(learn.sum)
 sum(learn.sum$n)
 
+##Create dendrogram from mean metrics for unique letters
+##Use plyr summarise above 
+
 learn.means<-learn.sum[,-1]
 rownames(learn.means)<-learn.sum[,1]
 lc=hclust(dist(learn.means),method="complete")
@@ -77,6 +80,9 @@ lc$order
 ###I want to make a matrix to create a binary search tree
 ##THIS CODE IS INCOMPLETE! 
 ##I was trying to automate the bst 
+
+### THIS IS FOR FUTURE WORK 
+### ENABLE US TO USE DIFFERENT DISTANCE METRICS
 
 learn.bst<-matrix(c(rep(-1,650)),nrow=26,ncol=25)
 rownames(learn.bst)<-LETTERS[1:26]
