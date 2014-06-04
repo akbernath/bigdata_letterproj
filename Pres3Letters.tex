@@ -15,7 +15,7 @@
 
 \newtheorem{question}{Question}[section] 
 
-\title{Project 3: \emph{"Today's episode of Sesame Street has been brought to you by the letter ..."} }
+\title{Project 3: \emph{"Brought to you by the letter ..."} }
 
 
 
@@ -305,7 +305,7 @@ Constructing Decision Tree (Using Learning Set):
 \begin{frame}
 \frametitle{Bagging Error Plot}
 \begin{center} 
-\includegraphics[width=.6 \textwidth]{bagError}
+\includegraphics[width=.6 \textwidth]{bagErr}
 \end{center}
 \end{frame}
 
@@ -395,6 +395,11 @@ Findings for:
 \section{Discussion}
 \begin{frame}
 \frametitle{Discussion}
+\begin{itemize}
+\item Logistic Regression Assumptions
+\item Decision Tree Assumptions 
+\item Scalabilty 
+\end{itemize}
 \end{frame}
 
 \subsection{Logistic Regression Assumptions}
@@ -412,15 +417,46 @@ Findings for:
 \tiny{Source: IDRE UCLA (Institute for Digital Research and Education}
 \end{frame}
 
+\subsection{Decision Tree Assumptions}
+\begin{frame}
+\frametitle{Decision Tree Assumptions}
+CART assumptions:
+\begin{enumerate}
+\item Data are drawn independently from the same distribution.
+\item Data is fixed and free of measurement error.
+\item For classification trees the response must be discrete and the covariates are categorical, discrete, or can be discretized.
+\end{enumerate}
+Bagging assumptions:
+\begin{enumerate}
+\item The underlying classifier has small bias
+\item The underlying classifier is appropriate for the data
+\end{enumerate}
+\end{frame}
+
+
 \subsection{Scalability}
 \begin{frame}
 \frametitle{Scalability}
+\begin{itemize}
+\item Both algorithms can be applied to bigger/different data sets 
+\item However, more observations and/or more categories would increase run time 
+\begin{itemize}
+\item LRBST already takes a long time to run ($\sim 8$ hrs) due to inefficient coding 
+\item Dicision trees run quickly because there are pre-packaged functions in R. 
+\item Might take more time to prune. 
+\end{itemize}
+\end{itemize}
 \end{frame}
 
 
 \subsection{Future Work}
 \begin{frame}
 \frametitle{Future Work}
+\begin{itemize}
+\item Make LRBST code more efficient by using object oriented programming aspects of R 
+\item Decision trees with linear combinations of variables instead of splitting by variables one at a time 
+\item Look at different letter cases, languages, symbols,...
+\end{itemize}
 \end{frame}
 
 
@@ -430,7 +466,9 @@ Findings for:
 \begin{frame}
 \frametitle{Questions}
 \begin{center}
-
+\begin{center} 
+\includegraphics[width=.7 \textwidth]{quests}
+\end{center}
 \end{center}
 
 
