@@ -1,1 +1,10 @@
-Sub-directory for project code.
+ST599 - Computing and Analysis of Big Data
+Subdirectory - Code
+
+####  Final Code Files
+*CART_bagging.R*:  Final code for CART model and bagging
+*data_split.R*:  Code for splitting data to training and test sets
+
+
+####  Obsolete Code Files
+*akb_exploratory.R*:  Andrew's initial tree builds and exploration
