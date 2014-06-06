@@ -1,1 +1,10 @@
-Sub-directory for project data.
+ST599 - Computing and Analysis of Big Data
+Subdirectory - Data
+
+####  
+
+*bag_confusion.csv*:  Confusion table for Bagging
+*CT_confusion.csv*:  Confusion tbale for CART
+*learn_set.csv*:  Training data, 2/3 of full data stratified by letter
+*letter_data.csv*:  Full data set
+*xvalid_set.csv*:  Testing data, 1/3 of full data stratified by letter
