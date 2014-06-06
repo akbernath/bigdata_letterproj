@@ -1,3 +1,14 @@
-Sub-directory for project graphs.
+ST599 - Computing and Analysis of Big Data
+Subdirectory - Graphs
 
-Please store in *.pdf format.
+####   Final Graphs
+*Auto Generated CT.pdf*:  CART model graph built by R defaults
+CP Plot Full Tree.pdf*:  Complexity parameter plot for full CART
+*Error Evolution for Bagging.jpg*:  Final file for bagging error, does not truncate
+*Full CT.pdf*:  Full CART tree
+*Pruned CT.pdf*:  CART tree with single step of pruning
+
+
+####   Unused Graphs
+*FullCT.pdf*:  Duplicate graph of full CART
+*Error Evolution for Bagging.pdf*:  Error graph for Bagging, truncated legend
