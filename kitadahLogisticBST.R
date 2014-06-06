@@ -18,8 +18,8 @@ learn.mat<-cbind(depth,learn.mat)
 
 
 #test case
-new.data<-learn[531,2:17]
-true<-learn[531,18]
+new.data<-learn[10000,2:17]
+true<-learn[10000,18]
 true
 
 ##RUN CODE
@@ -70,12 +70,14 @@ while(end >=0){
   }
   mod<-glm(resp~learn$x_box+learn$y_box+learn$width+learn$high+learn$onpix+learn$x_bar+learn$y_bar+learn$x2_bar+learn$y2_bar+learn$xy_bar+learn$x2y_bar+learn$xy2_bar+learn$x_ege+learn$x_egvy+learn$y_ege+learn$y_egvx,family="binomial")
   ##this returns the sample probability from the new data 
+  print(round(mod$coef,2))
   this.logit<-as.numeric(mod$coef[1])
   for(i in 2:17){
     j=i-1
     this.logit=this.logit+as.numeric(mod$coef[i])*as.numeric(new.data[j])
   }
   pi.hat=exp(this.logit)/(1+exp(this.logit))
+  print(pi.hat)
   ##decide where to move (right=1, left=0)
   if(pi.hat>=0.5){
     move=1
