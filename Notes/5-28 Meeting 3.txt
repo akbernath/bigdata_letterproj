@@ -1,0 +1,12 @@
+5-28-14
+
+Third brief meeting
+
+*  Heather still working on optimizing code
+
+*  Andrew has a complete set of models with graphics
+	*  Explains how models work to group
+	*  But fails at that
+	*  Will provide confusion matrices by Friday
+
+*  Decision by group to abandon ANN models, too broad for remaining time

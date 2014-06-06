@@ -1,0 +1,17 @@
+5-23-14
+
+Second meeting: Discussing research
+
+*  Heather used dendrograms to play with data and explore some initial plots
+	*  Plans to build a logistic regression search at each step
+
+*  Andrew used CART modeling to build decision trees
+	*  Will continue to build a pruned CART
+	*  Will prepare explanation of how CART functions for group
+
+*  Ethan will be gone for wedding, will resume following week
+	*  Plans to look into other machine learning
+
+
+
+ 

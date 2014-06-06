@@ -1,0 +1,13 @@
+6-3-2014
+
+Fifth group meeting
+
+*  Heather needs the following to complete slides
+	*  Error graph from Andrew
+	*  Model assumptions from Andrew
+		*  CART
+		*  Bagging
+
+*  Future work discussed
+
+*  Presentation details discussed and final explanations of methods given
